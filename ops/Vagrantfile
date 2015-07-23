@@ -8,13 +8,15 @@ Vagrant.configure("2") do |config|
     google.google_project_id = "fullstack-example"
     google.google_client_email = "zhangchun88@gmail.com"
     google.google_json_key_location = "~/fullstack-example.json"
+    google.name = "fullstack-webserver1"
 
     override.ssh.username = "zhangchun88"
     override.ssh.private_key_path = "~/.ssh/id_rsa"
   end
 
-  config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "init.yml"
+  config.vm.define "webservers" do |webservers|
+    config.vm.provision "ansible" do |ansible|
+      ansible.playbook = "webservers.yml"
+    end
   end
-
 end

@@ -1,6 +1,5 @@
-user: zhangchun88
 webapp_root: /www
 app_name: aaa
-repo_url: https://github.com/mattupstate/ansible-tutorial.git
+repo_url: https://github.com/zcmyth/fullstack.git
 www_user: www
 www_group: www
