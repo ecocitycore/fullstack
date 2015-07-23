@@ -1,0 +1,9 @@
+---
+
+- hosts: webservers
+  sudo: True
+  vars_files:
+    - vars.yml
+  roles:
+    - webservers
+    - update

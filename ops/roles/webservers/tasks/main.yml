@@ -1,0 +1,46 @@
+---
+
+- name: Install common packages
+  apt: pkg={{item}} state=installed
+  with_items:
+    - python-dev
+    - git-core
+    - nginx
+    - uwsgi
+    - uwsgi-plugin-python
+    - python-pip
+
+- name: Install python libraries
+  pip: name={{item}} state=present
+  with_items:
+    - virtualenv
+
+- name: Create group
+  group: name={{www_group}} state=present
+
+- name: Create user 
+  user: name={{www_user}} group={{www_group}} shell=/bin/bash
+
+- name: Initialize app directory
+  file: dest={{webapp_root}}/{{app_name}}/log state=directory owner={{www_user}} group={{www_group}}
+
+- name: Set up virtual env
+  command: virtualenv {{webapp_root}}/{{app_name}}/venv creates={{webapp_root}}/{{app_name}}/venv
+
+- name: Initialize nginx
+  template: src=nginx.conf dest=/etc/nginx/nginx.conf
+
+- name: Remove default nginx app
+  file: path=/etc/nginx/sites-enabled/default state=absent
+
+- name: Config nginx for app
+  template: src=nginx_site.conf dest=/etc/nginx/sites-enabled/{{app_name}}.conf
+
+- name: Restart nginx 
+  service: name=nginx state=restarted
+
+- name: Initialize uwsgi
+  template: src=uwsgi.conf dest=/etc/init/uwsgi.conf
+
+- name: Config uwsgi for app
+  template: src=uwsgi_site.ini dest=/etc/uwsgi/apps-enabled/{{app_name}}.ini

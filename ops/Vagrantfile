@@ -1,0 +1,20 @@
+# Generate key if haven't had yet
+# ssh-keygen -t rsa -b 4096 -C "zhangchun88@gmail.com"
+# Then add the public key ~/.ssh/id_rsa.pub to the Metadata in GCE
+Vagrant.configure("2") do |config|
+  config.vm.box = "gce"
+
+  config.vm.provider :google do |google, override|
+    google.google_project_id = "fullstack-example"
+    google.google_client_email = "zhangchun88@gmail.com"
+    google.google_json_key_location = "~/fullstack-example.json"
+
+    override.ssh.username = "zhangchun88"
+    override.ssh.private_key_path = "~/.ssh/id_rsa"
+  end
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "init.yml"
+  end
+
+end

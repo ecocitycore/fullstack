@@ -1,0 +1,10 @@
+---
+
+- name: Pull code from repository
+  git: repo={{repo_url}} dest={{webapp_root}}/{{app_name}}/src remote=origin version=master
+
+- name: Install dependencies into virtualenv
+  pip: requirements={{webapp_root}}/{{app_name}}/src/requirements.txt virtualenv={{webapp_root}}/{{app_name}}/venv state=present
+
+- name: Restart uwsgi
+  service: name=uwsgi state=restarted
