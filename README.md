@@ -3,4 +3,6 @@ Vagrant + Ansible + Nginx + uWSGI + gulp + Angular2 + Django
 
 we love it!
 
-uWSGI
+#  uWSGI
+
+https://docs.djangoproject.com/en/1.8/howto/deployment/wsgi/uwsgi/
