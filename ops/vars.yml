@@ -1,5 +1,5 @@
 webapp_root: /www
-app_name: aaa
+app_name: ecocity_public_dashboard
 repo_url: https://github.com/ecocitycore/fullstack.git
 www_user: www
 www_group: www
