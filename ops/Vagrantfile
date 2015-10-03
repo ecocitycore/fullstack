@@ -5,12 +5,12 @@ Vagrant.configure("2") do |config|
   config.vm.box = "gce"
 
   config.vm.provider :google do |google, override|
-    google.google_project_id = "fullstack-example"
-    google.google_client_email = "zhangchun88@gmail.com"
-    google.google_json_key_location = "~/fullstack-example.json"
-    google.name = "fullstack-webserver1"
+    google.google_project_id = "ecocity_public_dashboard"
+    google.google_client_email = "acmeideal@gmail.com"
+    google.google_json_key_location = "~/ecocity-public-dashboard.json"
+    google.name = "ecocity-public-dashboard"
 
-    override.ssh.username = "zhangchun88"
+    override.ssh.username = "acmeideal"
     override.ssh.private_key_path = "~/.ssh/id_rsa"
   end
 
